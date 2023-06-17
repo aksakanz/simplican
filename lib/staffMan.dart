@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:simplican/main.dart';
 
 import 'staffManDetail.dart';
 
@@ -18,7 +17,7 @@ class _StaffManagementState extends State<StaffManagement> {
   Future _getData() async {
     try {
       final response =
-          await http.get(Uri.parse("http://10.0.2.2/android/deleteStaff.php"));
+          await http.get(Uri.parse("http://10.0.2.2/android/getAdmin.php"));
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         setState(() {
@@ -37,6 +36,7 @@ class _StaffManagementState extends State<StaffManagement> {
         "id": id,
       });
       if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
         return true;
       }
       return false;
@@ -121,6 +121,7 @@ class _StaffManagementState extends State<StaffManagement> {
                                                 onPressed: () {
                                                   _delete(
                                                       _listdata[index]['id']);
+                                                  Navigator.of(context).pop();
                                                 },
                                                 child: Text("Hapus"),
                                                 style: ElevatedButton.styleFrom(
@@ -145,7 +146,9 @@ class _StaffManagementState extends State<StaffManagement> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/AddStaff');
+        },
         child: Icon(Icons.add),
       ),
     );
