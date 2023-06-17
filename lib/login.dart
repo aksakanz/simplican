@@ -17,6 +17,8 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController passwordTxt = new TextEditingController();
   String msg = '';
 
+  bool _isLoading = false;
+
   Future _login() async {
     final response =
         await http.post(Uri.parse("http://10.0.2.2/android/login.php"), body: {
@@ -33,8 +35,14 @@ class _LoginPageState extends State<LoginPage> {
     } else {
       if (datauser[0]['role'] == 'mahasiswa') {
         Navigator.pushReplacementNamed(context, '/MahasiswaPage');
+        setState(() {
+          _isLoading = true;
+        });
       } else if (datauser[0]['role'] == 'admin') {
         Navigator.pushReplacementNamed(context, '/AdminPage');
+        setState(() {
+          _isLoading = true;
+        });
       }
       setState(() {
         id = datauser[0]['id'];
@@ -145,7 +153,9 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: () {
                             _login();
                           },
-                          child: Text("LOGIN")),
+                          child: _isLoading
+                              ? CircularProgressIndicator()
+                              : Text("Login")),
                     ),
                   ],
                 ),

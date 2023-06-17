@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:simplican/admProfile.dart';
 import 'package:simplican/admpag.dart';
 import 'package:simplican/job.dart';
+import 'package:simplican/staffMan.dart';
 import 'event.dart';
 import 'mhspage.dart';
 import 'dart:async';
@@ -80,6 +81,7 @@ class MainApp extends StatelessWidget {
               nama: nama,
               alamat: alamat,
             ),
+        '/StaffManagement': (BuildContext context) => new StaffManagement(),
       },
       debugShowCheckedModeBanner: false,
     );

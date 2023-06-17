@@ -13,7 +13,7 @@ class _JobDetailState extends State<JobDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("ASD"),
+        title: Text(widget.ListData['jobv_title']),
       ),
       body: ListView(
         children: [
