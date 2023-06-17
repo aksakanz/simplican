@@ -216,6 +216,7 @@ class _AdminPageState extends State<AdminPage> {
                     "Login Sebagai : $role",
                     style: TextStyle(
                       color: Colors.white,
+                      fontSize: 12,
                     ),
                   ),
                 ),
