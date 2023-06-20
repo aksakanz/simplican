@@ -119,6 +119,9 @@ class _AdminPageState extends State<AdminPage> {
                       width: 20,
                     ),
                     InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/MhsManagement');
+                      },
                       child: Card(
                         child: Container(
                           margin: EdgeInsets.all(10),

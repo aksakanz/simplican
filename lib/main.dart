@@ -3,6 +3,7 @@ import 'package:simplican/addStaff.dart';
 import 'package:simplican/admProfile.dart';
 import 'package:simplican/admpag.dart';
 import 'package:simplican/job.dart';
+import 'package:simplican/mhsman.dart';
 import 'package:simplican/staffMan.dart';
 import 'event.dart';
 import 'mhspage.dart';
@@ -84,6 +85,7 @@ class MainApp extends StatelessWidget {
             ),
         '/StaffManagement': (BuildContext context) => new StaffManagement(),
         '/AddStaff': (BuildContext context) => new AddStaff(),
+        '/MhsManagement': (BuildContext context) => new MhsManagement(),
       },
       debugShowCheckedModeBanner: false,
     );
