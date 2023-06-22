@@ -97,7 +97,20 @@ class _MhsManagementState extends State<MhsManagement> {
                             SizedBox(
                               width: 10,
                             ),
-                            Text(_listData[index]['nama']),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(_listData[index]['nama']),
+                                Text(_listData[index]['prodi']),
+                                Row(
+                                  children: [
+                                    Text("status : "),
+                                    Text(_listData[index]['role']),
+                                  ],
+                                )
+                              ],
+                            ),
                             Spacer(),
                             IconButton(
                                 onPressed: () {
