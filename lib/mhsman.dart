@@ -103,12 +103,6 @@ class _MhsManagementState extends State<MhsManagement> {
                               children: [
                                 Text(_listData[index]['nama']),
                                 Text(_listData[index]['prodi']),
-                                Row(
-                                  children: [
-                                    Text("status : "),
-                                    Text(_listData[index]['role']),
-                                  ],
-                                )
                               ],
                             ),
                             Spacer(),
@@ -167,7 +161,9 @@ class _MhsManagementState extends State<MhsManagement> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/AddMhs');
+        },
         child: Icon(Icons.add),
       ),
     );

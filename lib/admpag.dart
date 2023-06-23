@@ -154,7 +154,7 @@ class _AdminPageState extends State<AdminPage> {
                             width: 100,
                             child: Center(
                               child: Text(
-                                "Event Management",
+                                "Alumni Management",
                                 textAlign: TextAlign.center,
                               ),
                             ),
@@ -174,14 +174,14 @@ class _AdminPageState extends State<AdminPage> {
                             width: 100,
                             child: Center(
                               child: Text(
-                                "Job Vacancy Management",
+                                "Event Management",
                                 textAlign: TextAlign.center,
                               ),
                             ),
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -189,6 +189,26 @@ class _AdminPageState extends State<AdminPage> {
                 margin: EdgeInsets.fromLTRB(65, 470, 50, 0),
                 child: Row(
                   children: [
+                    InkWell(
+                      child: Card(
+                        child: Container(
+                          margin: EdgeInsets.all(10),
+                          child: SizedBox(
+                            height: 100,
+                            width: 100,
+                            child: Center(
+                              child: Text(
+                                "Job Vacancy Management",
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
                     InkWell(
                       onTap: () {
                         Navigator.pushNamed(context, '/AdminProfile');

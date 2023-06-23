@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simplican/addMhs.dart';
 import 'package:simplican/addStaff.dart';
 import 'package:simplican/admProfile.dart';
 import 'package:simplican/admpag.dart';
@@ -86,6 +87,7 @@ class MainApp extends StatelessWidget {
         '/StaffManagement': (BuildContext context) => new StaffManagement(),
         '/AddStaff': (BuildContext context) => new AddStaff(),
         '/MhsManagement': (BuildContext context) => new MhsManagement(),
+        '/AddMhs': (BuildContext context) => new AddMhs(),
       },
       debugShowCheckedModeBanner: false,
     );

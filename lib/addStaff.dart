@@ -160,6 +160,7 @@ class _AddStaffState extends State<AddStaff> {
                                 SizedBox(
                                   width: 10,
                                 ),
+                                SizedBox(height: 10),
                                 ElevatedButton(
                                   onPressed: () {
                                     _save();
