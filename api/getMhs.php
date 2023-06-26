@@ -1,11 +1,12 @@
 <?php
-include 'conn.php';
-$queryResult = $connect->query("SELECT * FROM user WHERE role='mahasiswa'");
+    include 'conn.php';
+    $queryResult=$connect->query("SELECT * FROM user WHERE role='mahasiswa'");
 
-$result = array();
+    $result=array();
 
-while ($fetchData = $queryResult->fetch_assoc()) {
-    $result[] = $fetchData;
-}
+    while($fetchData=$queryResult->fetch_assoc()){
+	    $result[]=$fetchData;
+    }
 
-echo json_encode($result);
+    echo json_encode($result);
+?>
