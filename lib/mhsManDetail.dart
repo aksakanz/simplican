@@ -291,6 +291,22 @@ class _MhsManDetailState extends State<MhsManDetail> {
                     label: Text("Pekerjaan"),
                   ),
                 ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextField(
+                  controller: angkatan,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Colors.blue,
+                      ),
+                    ),
+                    label: Text("Angkatan"),
+                  ),
+                ),
               ],
             ),
           ),
@@ -304,7 +320,7 @@ class _MhsManDetailState extends State<MhsManDetail> {
               child: ElevatedButton.icon(
                 onPressed: () {
                   _update();
-                  Navigator.pushNamed(context, '/StaffManagement');
+                  Navigator.pushNamed(context, '/MhsManagement');
                 },
                 icon: Icon(Icons.save),
                 label: Text("Simpan"),

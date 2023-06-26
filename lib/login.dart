@@ -43,6 +43,11 @@ class _LoginPageState extends State<LoginPage> {
         setState(() {
           _isLoading = true;
         });
+      } else if (datauser[0]['role'] == 'alumni') {
+        Navigator.pushReplacementNamed(context, '/MahasiswaPage');
+        setState(() {
+          _isLoading = true;
+        });
       }
       setState(() {
         id = datauser[0]['id'];

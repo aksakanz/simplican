@@ -25,7 +25,7 @@ class _AddMhsState extends State<AddMhs> {
   TextEditingController pekerjaan = new TextEditingController();
   TextEditingController angkatan = new TextEditingController();
 
-  Future _update() async {
+  Future _save() async {
     final response = await http
         .post(Uri.parse("http://10.0.2.2/android/uploadMhs.php"), body: {
       "id": id.text,
@@ -263,6 +263,7 @@ class _AddMhsState extends State<AddMhs> {
               width: 150,
               child: ElevatedButton.icon(
                 onPressed: () {
+                  _save();
                   Navigator.pushNamed(context, '/MhsManagement');
                 },
                 icon: Icon(Icons.save),
