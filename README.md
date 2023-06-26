@@ -1,6 +1,6 @@
 # simplican
 
-A new Flutter project.
+Sistem E-Tracer untuk track pekerjaan alumni dan sebagai wadah untuk mendapatkan lowongan pekerjaan ataupun event pada universitas esa unggul.
 
 ## Getting Started
 
