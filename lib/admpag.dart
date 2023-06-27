@@ -146,6 +146,9 @@ class _AdminPageState extends State<AdminPage> {
                 child: Row(
                   children: [
                     InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/AlumniManagement');
+                      },
                       child: Card(
                         child: Container(
                           margin: EdgeInsets.all(10),
@@ -166,6 +169,9 @@ class _AdminPageState extends State<AdminPage> {
                       width: 20,
                     ),
                     InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/EventManagement');
+                      },
                       child: Card(
                         child: Container(
                           margin: EdgeInsets.all(10),

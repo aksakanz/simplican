@@ -50,26 +50,26 @@ class _EventState extends State<Event> {
             itemCount: _listdata.length,
             itemBuilder: ((context, index) {
               return InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: ((context) => EventDetail(
-                              ListData: {
-                                "event_id": _listdata[index]['event_id'],
-                                "event_title": _listdata[index]['event_title'],
-                                "event_desc": _listdata[index]['event_desc'],
-                                "event_pos": _listdata[index]['event_pos'],
-                                "event_time": _listdata[index]['event_time'],
-                                "event_post_date": _listdata[index]
-                                    ['event_post_date'],
-                              },
-                            )),
-                      ),
-                    );
-                  },
-                  child: Card(
-                      child: Column(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: ((context) => EventDetail(
+                            ListData: {
+                              "event_id": _listdata[index]['event_id'],
+                              "event_title": _listdata[index]['event_title'],
+                              "event_desc": _listdata[index]['event_desc'],
+                              "event_pos": _listdata[index]['event_pos'],
+                              "event_time": _listdata[index]['event_time'],
+                              "event_post_date": _listdata[index]
+                                  ['event_post_date'],
+                            },
+                          )),
+                    ),
+                  );
+                },
+                child: Card(
+                  child: Column(
                     children: [
                       SizedBox(
                         height: 300,
@@ -110,9 +110,14 @@ class _EventState extends State<Event> {
                             ),
                           ),
                         ],
-                      )
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
                     ],
-                  )));
+                  ),
+                ),
+              );
             })),
       ),
     );

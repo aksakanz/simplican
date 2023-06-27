@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:simplican/addAlumni.dart';
 import 'package:simplican/addMhs.dart';
 import 'package:simplican/addStaff.dart';
 import 'package:simplican/admProfile.dart';
 import 'package:simplican/admpag.dart';
+import 'package:simplican/alumniMan.dart';
+import 'package:simplican/eventMan.dart';
 import 'package:simplican/job.dart';
 import 'package:simplican/mhsman.dart';
 import 'package:simplican/staffMan.dart';
@@ -88,6 +91,9 @@ class MainApp extends StatelessWidget {
         '/AddStaff': (BuildContext context) => new AddStaff(),
         '/MhsManagement': (BuildContext context) => new MhsManagement(),
         '/AddMhs': (BuildContext context) => new AddMhs(),
+        '/AlumniManagement': (BuildContext context) => new AlumniManagement(),
+        '/AddAlumni': (BuildContext context) => new AddAlumni(),
+        '/EventManagement': (BuildContext context) => new EventManagement(),
       },
       debugShowCheckedModeBanner: false,
     );

@@ -3,14 +3,14 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class AddMhs extends StatefulWidget {
-  const AddMhs({super.key});
+class AddAlumni extends StatefulWidget {
+  const AddAlumni({super.key});
 
   @override
-  State<AddMhs> createState() => _AddMhsState();
+  State<AddAlumni> createState() => _AddAlumni();
 }
 
-class _AddMhsState extends State<AddMhs> {
+class _AddAlumni extends State<AddAlumni> {
   bool _showHidePassword = true;
   TextEditingController id = new TextEditingController();
   TextEditingController nim = new TextEditingController();
@@ -27,7 +27,7 @@ class _AddMhsState extends State<AddMhs> {
 
   Future _save() async {
     final response = await http
-        .post(Uri.parse("http://10.0.2.2/android/uploadMhs.php"), body: {
+        .post(Uri.parse("http://10.0.2.2/android/uploadAlumni.php"), body: {
       "id": id.text,
       "nim": nim.text,
       "nama": nama.text,
@@ -280,7 +280,7 @@ class _AddMhsState extends State<AddMhs> {
               child: ElevatedButton.icon(
                 onPressed: () {
                   _save();
-                  Navigator.pushNamed(context, '/MhsManagement');
+                  Navigator.pushNamed(context, '/AlumniManagement');
                 },
                 icon: Icon(Icons.save),
                 label: Text("Simpan"),

@@ -3,20 +3,25 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class AddMhs extends StatefulWidget {
-  const AddMhs({super.key});
+class AlumniManDetail extends StatefulWidget {
+  final Map ListData;
+  const AlumniManDetail({
+    super.key,
+    required this.ListData,
+  });
 
   @override
-  State<AddMhs> createState() => _AddMhsState();
+  State<AlumniManDetail> createState() => _AlumniManDetail();
 }
 
-class _AddMhsState extends State<AddMhs> {
+class _AlumniManDetail extends State<AlumniManDetail> {
   bool _showHidePassword = true;
   TextEditingController id = new TextEditingController();
   TextEditingController nim = new TextEditingController();
   TextEditingController nama = new TextEditingController();
   TextEditingController alamat = new TextEditingController();
   TextEditingController password = new TextEditingController();
+  TextEditingController role = new TextEditingController();
   TextEditingController status = new TextEditingController();
   TextEditingController ipk = new TextEditingController();
   TextEditingController thn_lulus = new TextEditingController();
@@ -25,14 +30,15 @@ class _AddMhsState extends State<AddMhs> {
   TextEditingController pekerjaan = new TextEditingController();
   TextEditingController angkatan = new TextEditingController();
 
-  Future _save() async {
+  Future _update() async {
     final response = await http
-        .post(Uri.parse("http://10.0.2.2/android/uploadMhs.php"), body: {
+        .post(Uri.parse("http://10.0.2.2/android/updateStaff.php"), body: {
       "id": id.text,
       "nim": nim.text,
       "nama": nama.text,
       "alamat": alamat.text,
       "password": password.text,
+      "role": role.text,
       "status": status.text,
       "ipk": ipk.text,
       "thn_lulus": thn_lulus.text,
@@ -53,6 +59,7 @@ class _AddMhsState extends State<AddMhs> {
     nama.clear();
     alamat.clear();
     password.clear();
+    role.clear();
     status.clear();
     ipk.clear();
     thn_lulus.clear();
@@ -64,17 +71,34 @@ class _AddMhsState extends State<AddMhs> {
 
   @override
   Widget build(BuildContext context) {
+    id.text = widget.ListData['id'];
+    nim.text = widget.ListData['nim'];
+    nama.text = widget.ListData['nama'];
+    alamat.text = widget.ListData['alamat'];
+    password.text = widget.ListData['password'];
+    role.text = widget.ListData['role'];
+    status.text = widget.ListData['status'];
+    ipk.text = widget.ListData['ipk'];
+    thn_lulus.text = widget.ListData['thn_lulus'];
+    prodi.text = widget.ListData['prodi'];
+    fakultas.text = widget.ListData['fakultas'];
+    pekerjaan.text = widget.ListData['pekerjaan'];
+    angkatan.text = widget.ListData['angkatan'];
     return Scaffold(
       appBar: AppBar(
-        title: Text("Tambah Data Mahasiswa"),
-        centerTitle: true,
+        title: Row(
+          children: [
+            Text("Edit Data - "),
+            Text(widget.ListData['nama']),
+          ],
+        ),
         actions: [
           IconButton(
             onPressed: () {
               _resetForm();
             },
             icon: Icon(Icons.restore),
-          ),
+          )
         ],
       ),
       body: ListView(
@@ -153,6 +177,22 @@ class _AddMhsState extends State<AddMhs> {
                           ? Icons.visibility
                           : Icons.visibility_off,
                     ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextField(
+                  controller: role,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Colors.blue,
+                      ),
+                    ),
+                    label: Text("Role"),
                   ),
                 ),
                 SizedBox(
@@ -279,7 +319,7 @@ class _AddMhsState extends State<AddMhs> {
               width: 150,
               child: ElevatedButton.icon(
                 onPressed: () {
-                  _save();
+                  _update();
                   Navigator.pushNamed(context, '/MhsManagement');
                 },
                 icon: Icon(Icons.save),
