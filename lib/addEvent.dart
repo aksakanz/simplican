@@ -3,18 +3,16 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class EventManDetail extends StatefulWidget {
-  final Map ListData;
-  const EventManDetail({
+class AddEvent extends StatefulWidget {
+  const AddEvent({
     super.key,
-    required this.ListData,
   });
 
   @override
-  State<EventManDetail> createState() => _EventManDetail();
+  State<AddEvent> createState() => _AddEvent();
 }
 
-class _EventManDetail extends State<EventManDetail> {
+class _AddEvent extends State<AddEvent> {
   TextEditingController event_id = new TextEditingController();
   TextEditingController event_title = new TextEditingController();
   TextEditingController event_desc = new TextEditingController();
@@ -24,7 +22,7 @@ class _EventManDetail extends State<EventManDetail> {
 
   Future _update() async {
     final response = await http
-        .post(Uri.parse("http://10.0.2.2/android/uploadEvent.php"), body: {
+        .post(Uri.parse("http://10.0.2.2/android/updateEvent.php"), body: {
       "event_id": event_id.text,
       "event_title": event_title.text,
       "event_desc": event_desc.text,
@@ -49,20 +47,9 @@ class _EventManDetail extends State<EventManDetail> {
 
   @override
   Widget build(BuildContext context) {
-    event_id.text = widget.ListData['event_id'];
-    event_title.text = widget.ListData['event_title'];
-    event_desc.text = widget.ListData['event_desc'];
-    event_pos.text = widget.ListData['event_pos'];
-    event_time.text = widget.ListData['event_time'];
-    event_post_date.text = widget.ListData['event_post_date'];
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          children: [
-            Text("Edit Data - "),
-            Text(widget.ListData['event_title']),
-          ],
-        ),
+        title: Text("Tambah Event"),
         actions: [
           IconButton(
             onPressed: () {

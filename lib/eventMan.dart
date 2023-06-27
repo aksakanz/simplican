@@ -29,11 +29,11 @@ class _EventManagementState extends State<EventManagement> {
     }
   }
 
-  Future _delete(String id) async {
+  Future _delete(String event_id) async {
     try {
       final response = await http
-          .post(Uri.parse("http://10.0.2.2/android/deleteMhs.php"), body: {
-        "id": id,
+          .post(Uri.parse("http://10.0.2.2/android/deleteEvent.php"), body: {
+        "event_id": event_id,
       });
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -114,8 +114,8 @@ class _EventManagementState extends State<EventManagement> {
                                               ),
                                               ElevatedButton(
                                                 onPressed: () {
-                                                  _delete(
-                                                      _listData[index]['id']);
+                                                  _delete(_listData[index]
+                                                      ['event_id']);
                                                   Navigator.of(context).pop();
                                                 },
                                                 child: Text("Hapus"),
@@ -141,7 +141,9 @@ class _EventManagementState extends State<EventManagement> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/AddEvent');
+        },
         child: IconButton(
           onPressed: () {},
           icon: Icon(Icons.add),

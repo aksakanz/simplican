@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simplican/addAlumni.dart';
+import 'package:simplican/addEvent.dart';
 import 'package:simplican/addMhs.dart';
 import 'package:simplican/addStaff.dart';
 import 'package:simplican/admProfile.dart';
@@ -94,6 +95,7 @@ class MainApp extends StatelessWidget {
         '/AlumniManagement': (BuildContext context) => new AlumniManagement(),
         '/AddAlumni': (BuildContext context) => new AddAlumni(),
         '/EventManagement': (BuildContext context) => new EventManagement(),
+        '/AddEvent': (BuildContext context) => new AddEvent(),
       },
       debugShowCheckedModeBanner: false,
     );
