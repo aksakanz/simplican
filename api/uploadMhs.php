@@ -10,8 +10,7 @@
     $thn_lulus= $_POST['thn_lulus'];
     $prodi= $_POST['prodi'];
     $fakultas= $_POST['fakultas'];
-    $pekerjaan= $POST['pekerjaan'];
-    $angkatan= $POST['angkatan'];
+    $pekerjaan= $_POST['pekerjaan'];
+    $angkatan= $_POST['angkatan'];
 
     $connect->query("INSERT INTO user SET nim='$nim', nama='$nama', alamat='$alamat', password='$password', status='$status', ipk='$ipk', thn_lulus='$thn_lulus', prodi='$prodi', fakultas='$fakultas', pekerjaan='$pekerjaan', angkatan='$angkatan',role='mahasiswa'");
-?>
