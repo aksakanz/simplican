@@ -3,13 +3,16 @@ import 'package:simplican/addAlumni.dart';
 import 'package:simplican/addEvent.dart';
 import 'package:simplican/addMhs.dart';
 import 'package:simplican/addStaff.dart';
+import 'package:simplican/admEditProfile.dart';
 import 'package:simplican/admProfile.dart';
 import 'package:simplican/admpag.dart';
 import 'package:simplican/alumniMan.dart';
 import 'package:simplican/eventMan.dart';
 import 'package:simplican/job.dart';
+import 'package:simplican/jobMan.dart';
 import 'package:simplican/mhsman.dart';
 import 'package:simplican/staffMan.dart';
+import 'addJob.dart';
 import 'event.dart';
 import 'mhspage.dart';
 import 'dart:async';
@@ -88,6 +91,13 @@ class MainApp extends StatelessWidget {
               nama: nama,
               alamat: alamat,
             ),
+        '/EditProfileAdmin': (BuildContext context) => new EditProfileAdmin(
+              id: id,
+              nim: nim,
+              nama: nama,
+              alamat: alamat,
+              password: password,
+            ),
         '/StaffManagement': (BuildContext context) => new StaffManagement(),
         '/AddStaff': (BuildContext context) => new AddStaff(),
         '/MhsManagement': (BuildContext context) => new MhsManagement(),
@@ -96,6 +106,8 @@ class MainApp extends StatelessWidget {
         '/AddAlumni': (BuildContext context) => new AddAlumni(),
         '/EventManagement': (BuildContext context) => new EventManagement(),
         '/AddEvent': (BuildContext context) => new AddEvent(),
+        '/JobMan': (BuildContext context) => new JobMan(),
+        '/AddJob': (BuildContext context) => new AddJob(),
       },
       debugShowCheckedModeBanner: false,
     );

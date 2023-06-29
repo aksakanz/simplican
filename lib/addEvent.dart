@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class AddEvent extends StatefulWidget {
   const AddEvent({
@@ -22,7 +23,7 @@ class _AddEvent extends State<AddEvent> {
 
   Future _update() async {
     final response = await http
-        .post(Uri.parse("http://10.0.2.2/android/updateEvent.php"), body: {
+        .post(Uri.parse("http://10.0.2.2/android/uploadEvent.php"), body: {
       "event_id": event_id.text,
       "event_title": event_title.text,
       "event_desc": event_desc.text,
@@ -43,6 +44,46 @@ class _AddEvent extends State<AddEvent> {
     event_pos.clear();
     event_time.clear();
     event_post_date.clear();
+  }
+
+  DateTime selectedDate = DateTime.now();
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+      currentDate: DateTime.now(),
+      helpText: 'Pilih Tanggal',
+      cancelText: 'Batal',
+      confirmText: 'Pilih',
+      initialEntryMode: DatePickerEntryMode.calendarOnly,
+    );
+    if (picked != null && picked != selectedDate) {
+      String formattedDate = DateFormat('dd-MMMM-yyyy').format(picked);
+      setState(() {
+        selectedDate = picked;
+        event_time.text = formattedDate;
+      });
+    }
+  }
+
+  String getTodayDate() {
+    var now = DateTime.now();
+    var formatter = DateFormat('dd-MMMM-yyyy');
+    return formatter.format(now);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    event_post_date.text = getTodayDate();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    event_post_date.dispose();
   }
 
   @override
@@ -99,8 +140,15 @@ class _AddEvent extends State<AddEvent> {
                 ),
                 TextField(
                   controller: event_time,
+                  readOnly: true,
                   keyboardType: TextInputType.datetime,
                   decoration: InputDecoration(
+                    prefix: GestureDetector(
+                      child: Icon(Icons.calendar_today),
+                      onTap: () {
+                        _selectDate(context);
+                      },
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide(
@@ -109,6 +157,9 @@ class _AddEvent extends State<AddEvent> {
                     ),
                     label: Text("Waktu Event"),
                   ),
+                  onTap: () {
+                    _selectDate(context);
+                  },
                 ),
                 SizedBox(
                   height: 30,
@@ -125,6 +176,23 @@ class _AddEvent extends State<AddEvent> {
                       ),
                     ),
                     label: Text("Deskripsi Event"),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextField(
+                  enabled: false,
+                  controller: event_post_date,
+                  keyboardType: TextInputType.datetime,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Colors.blue,
+                      ),
+                    ),
+                    label: Text("Tanggal Posting"),
                   ),
                 ),
               ],

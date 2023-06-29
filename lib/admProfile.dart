@@ -65,7 +65,10 @@ class _AdminProfileState extends State<AdminProfile> {
                   child: Container(
                     margin: EdgeInsets.fromLTRB(0, 100, 0, 0),
                     child: ElevatedButton(
-                        onPressed: () {}, child: Text("Edit Profile")),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/EditProfileAdmin');
+                        },
+                        child: Text("Edit Profile")),
                   ),
                 )
               ],

@@ -2,80 +2,76 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 
-class EventManDetail extends StatefulWidget {
-  final Map ListData;
-  const EventManDetail({
+import 'main.dart';
+
+class EditProfileAdmin extends StatefulWidget {
+  final String id;
+  final String nim;
+  final String nama;
+  final String alamat;
+  final String password;
+  const EditProfileAdmin({
     super.key,
-    required this.ListData,
+    required this.id,
+    required this.nim,
+    required this.nama,
+    required this.alamat,
+    required this.password,
   });
 
   @override
-  State<EventManDetail> createState() => _EventManDetail();
+  State<EditProfileAdmin> createState() => _EditProfileAdminState();
 }
 
-class _EventManDetail extends State<EventManDetail> {
-  TextEditingController event_id = new TextEditingController();
-  TextEditingController event_title = new TextEditingController();
-  TextEditingController event_desc = new TextEditingController();
-  TextEditingController event_pos = new TextEditingController();
-  TextEditingController event_time = new TextEditingController();
-  TextEditingController event_post_date = new TextEditingController();
+class _EditProfileAdminState extends State<EditProfileAdmin> {
+  bool _showHidePassword = true;
+  TextEditingController id = TextEditingController();
+  TextEditingController nim = TextEditingController();
+  TextEditingController nama = TextEditingController();
+  TextEditingController alamat = TextEditingController();
+  TextEditingController password = TextEditingController();
 
   Future _update() async {
     final response = await http
-        .post(Uri.parse("http://10.0.2.2/android/updateEvent.php"), body: {
-      "event_id": event_id.text,
-      "event_title": event_title.text,
-      "event_desc": event_desc.text,
-      "event_pos": event_pos.text,
-      "event_time": event_time.text,
-      "event_post_date": event_post_date.text,
+        .post(Uri.parse("http://10.0.2.2/android/updateProfile.php"), body: {
+      "id": id.text,
+      "nim": nim.text,
+      "nama": nama.text,
+      "alamat": alamat.text,
+      "password": password.text,
     });
     if (response.statusCode == 200) {
       return true;
+      print(response.body);
     }
 
     return false;
   }
 
   void _resetForm() {
-    event_title.clear();
-    event_desc.clear();
-    event_pos.clear();
-    event_time.clear();
-    event_post_date.clear();
+    nama.clear();
+    alamat.clear();
   }
 
   @override
-  void dispose() {
-    super.dispose();
-    event_post_date.dispose();
+  void initState() {
+    super.initState();
+    id.text = widget.id;
+    nim.text = widget.nim;
+    nama.text = widget.nama;
+    alamat.text = widget.alamat;
+    password.text = widget.password;
   }
 
   @override
   Widget build(BuildContext context) {
-    event_id.text = widget.ListData['event_id'];
-    event_title.text = widget.ListData['event_title'];
-    event_desc.text = widget.ListData['event_desc'];
-    event_pos.text = widget.ListData['event_pos'];
-    event_time.text = widget.ListData['event_time'];
-    event_post_date.text = widget.ListData['event_post_date'];
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          children: [
-            Text("Edit Data - "),
-            Container(
-              width: 150,
-              child: Text(
-                widget.ListData['event_title'],
-                overflow: TextOverflow.fade,
-                maxLines: 1,
-              ),
-            )
-          ],
+        title: Text(
+          'Edit Profile',
+          overflow: TextOverflow.fade,
+          maxLines: 1,
         ),
         actions: [
           IconButton(
@@ -93,7 +89,8 @@ class _EventManDetail extends State<EventManDetail> {
             child: Column(
               children: [
                 TextField(
-                  controller: event_title,
+                  enabled: false,
+                  controller: nim,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -102,15 +99,14 @@ class _EventManDetail extends State<EventManDetail> {
                         color: Colors.blue,
                       ),
                     ),
-                    label: Text("Judul Event"),
+                    label: Text("Username"),
                   ),
                 ),
                 SizedBox(
                   height: 30,
                 ),
                 TextField(
-                  controller: event_pos,
-                  keyboardType: TextInputType.text,
+                  controller: nama,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -118,22 +114,7 @@ class _EventManDetail extends State<EventManDetail> {
                         color: Colors.blue,
                       ),
                     ),
-                    label: Text("Lokasi Event"),
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                TextField(
-                  controller: event_time,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Colors.blue,
-                      ),
-                    ),
-                    label: Text("Waktu Event"),
+                    label: Text("Nama"),
                   ),
                 ),
                 SizedBox(
@@ -141,7 +122,7 @@ class _EventManDetail extends State<EventManDetail> {
                 ),
                 TextField(
                   maxLines: 15,
-                  controller: event_desc,
+                  controller: alamat,
                   keyboardType: TextInputType.multiline,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -150,16 +131,20 @@ class _EventManDetail extends State<EventManDetail> {
                         color: Colors.blue,
                       ),
                     ),
-                    label: Text("Deskripsi Event"),
+                    label: Text("Alamat"),
                   ),
                 ),
                 SizedBox(
                   height: 30,
                 ),
                 TextField(
-                  enabled: false,
-                  controller: event_post_date,
-                  keyboardType: TextInputType.text,
+                  controller: password,
+                  obscureText: _showHidePassword,
+                  onTap: () {
+                    setState(() {
+                      _showHidePassword = !_showHidePassword;
+                    });
+                  },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -167,7 +152,12 @@ class _EventManDetail extends State<EventManDetail> {
                         color: Colors.blue,
                       ),
                     ),
-                    label: Text("Tanggal Posting"),
+                    label: Text("Kata Sandi"),
+                    suffixIcon: Icon(
+                      _showHidePassword
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                    ),
                   ),
                 ),
               ],
@@ -183,7 +173,7 @@ class _EventManDetail extends State<EventManDetail> {
               child: ElevatedButton.icon(
                 onPressed: () {
                   _update();
-                  Navigator.pushNamed(context, '/EventManagement');
+                  Navigator.pushNamed(context, '/AdminPage');
                 },
                 icon: Icon(Icons.save),
                 label: Text("Simpan"),

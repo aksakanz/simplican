@@ -58,7 +58,14 @@ class _StaffManagementDetailState extends State<StaffManagementDetail> {
           title: Row(
             children: [
               Text("Edit Data - "),
-              Text(widget.ListData['nama']),
+              Container(
+                width: 150,
+                child: Text(
+                  widget.ListData['nama'],
+                  overflow: TextOverflow.fade,
+                  maxLines: 1,
+                ),
+              )
             ],
           ),
           actions: [

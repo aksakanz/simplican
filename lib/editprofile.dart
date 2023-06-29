@@ -73,7 +73,7 @@ class _EditProfileState extends State<EditProfile> {
 
   Future _update() async {
     final response = await http
-        .post(Uri.parse("http://192.168.100.164/android/update.php"), body: {
+        .post(Uri.parse("http://10.0.2.2/android/updateProfile.php"), body: {
       "id": id.text,
       "alamat": alamat.text,
       "pekerjaan": pekerjaan.text,
@@ -85,8 +85,6 @@ class _EditProfileState extends State<EditProfile> {
 
     return false;
   }
-  
-  
 
   @override
   Widget build(BuildContext context) {

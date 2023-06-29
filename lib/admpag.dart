@@ -196,6 +196,9 @@ class _AdminPageState extends State<AdminPage> {
                 child: Row(
                   children: [
                     InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/JobMan');
+                      },
                       child: Card(
                         child: Container(
                           margin: EdgeInsets.all(10),

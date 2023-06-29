@@ -2,22 +2,21 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:simplican/jobManDetail.dart';
 
-import 'alumniManDetail.dart';
-
-class AlumniManagement extends StatefulWidget {
-  const AlumniManagement({super.key});
+class JobMan extends StatefulWidget {
+  const JobMan({super.key});
 
   @override
-  State<AlumniManagement> createState() => _AlumniManagementState();
+  State<JobMan> createState() => _JobManState();
 }
 
-class _AlumniManagementState extends State<AlumniManagement> {
+class _JobManState extends State<JobMan> {
   List _listData = [];
   Future _getData() async {
     try {
       final response =
-          await http.get(Uri.parse("http://10.0.2.2/android/getAlumni.php"));
+          await http.get(Uri.parse("http://10.0.2.2/android/getJob.php"));
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         setState(() {
@@ -29,11 +28,11 @@ class _AlumniManagementState extends State<AlumniManagement> {
     }
   }
 
-  Future _delete(String id) async {
+  Future _delete(String event_id) async {
     try {
       final response = await http
-          .post(Uri.parse("http://10.0.2.2/android/deleteMhs.php"), body: {
-        "id": id,
+          .post(Uri.parse("http://10.0.2.2/android/deleteEvent.php"), body: {
+        "event_id": event_id,
       });
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -55,7 +54,7 @@ class _AlumniManagementState extends State<AlumniManagement> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Alumni Management"),
+        title: Text("Job Vacancy Management"),
       ),
       body: RefreshIndicator(
         onRefresh: _getData,
@@ -67,21 +66,16 @@ class _AlumniManagementState extends State<AlumniManagement> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: ((context) => AlumniManDetail(
+                      builder: ((context) => JobManDetail(
                             ListData: {
-                              "id": _listData[index]['id'],
-                              "nim": _listData[index]['nim'],
-                              "nama": _listData[index]['nama'],
-                              "alamat": _listData[index]['alamat'],
-                              "password": _listData[index]['password'],
-                              "role": _listData[index]['role'],
-                              "status": _listData[index]['status'],
-                              "ipk": _listData[index]['ipk'],
-                              "thn_lulus": _listData[index]['thn_lulus'],
-                              "prodi": _listData[index]['prodi'],
-                              "fakultas": _listData[index]['fakultas'],
-                              "pekerjaan": _listData[index]['pekerjaan'],
-                              "angkatan": _listData[index]['angkatan'],
+                              "jobv_id": _listData[index]['jobv_id'],
+                              "jobv_title": _listData[index]['jobv_title'],
+                              "jobv_desc": _listData[index]['jobv_desc'],
+                              "jobv_date": _listData[index]['jobv_date'],
+                              "jobv_post_date": _listData[index]
+                                  ['jobv_post_date'],
+                              "job_post_by": _listData[index]['job_post_by'],
+                              "jobv_pos": _listData[index]['jobv_pos'],
                             },
                           )),
                     ),
@@ -93,17 +87,9 @@ class _AlumniManagementState extends State<AlumniManagement> {
                       child: ListTile(
                         title: Row(
                           children: [
-                            Text(_listData[index]['nim']),
+                            Text(_listData[index]['jobv_title']),
                             SizedBox(
                               width: 10,
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(_listData[index]['nama']),
-                                Text(_listData[index]['prodi']),
-                              ],
                             ),
                             Spacer(),
                             IconButton(
@@ -134,8 +120,8 @@ class _AlumniManagementState extends State<AlumniManagement> {
                                               ),
                                               ElevatedButton(
                                                 onPressed: () {
-                                                  _delete(
-                                                      _listData[index]['id']);
+                                                  _delete(_listData[index]
+                                                      ['jobv_id']);
                                                   Navigator.of(context).pop();
                                                 },
                                                 child: Text("Hapus"),
@@ -162,7 +148,7 @@ class _AlumniManagementState extends State<AlumniManagement> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/AddAlumni');
+          Navigator.pushNamed(context, '/AddJob');
         },
         child: Icon(Icons.add),
       ),

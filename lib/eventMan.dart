@@ -46,6 +46,12 @@ class _EventManagementState extends State<EventManagement> {
   }
 
   @override
+  void initState() {
+    _getData();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -144,10 +150,7 @@ class _EventManagementState extends State<EventManagement> {
         onPressed: () {
           Navigator.pushNamed(context, '/AddEvent');
         },
-        child: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.add),
-        ),
+        child: Icon(Icons.add),
       ),
     );
   }

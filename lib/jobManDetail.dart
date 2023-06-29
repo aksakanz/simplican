@@ -4,36 +4,39 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
-class EventManDetail extends StatefulWidget {
+class JobManDetail extends StatefulWidget {
   final Map ListData;
-  const EventManDetail({
+  const JobManDetail({
     super.key,
     required this.ListData,
   });
 
   @override
-  State<EventManDetail> createState() => _EventManDetail();
+  State<JobManDetail> createState() => _JobManDetailState();
 }
 
-class _EventManDetail extends State<EventManDetail> {
-  TextEditingController event_id = new TextEditingController();
-  TextEditingController event_title = new TextEditingController();
-  TextEditingController event_desc = new TextEditingController();
-  TextEditingController event_pos = new TextEditingController();
-  TextEditingController event_time = new TextEditingController();
-  TextEditingController event_post_date = new TextEditingController();
+class _JobManDetailState extends State<JobManDetail> {
+  TextEditingController jobv_id = new TextEditingController();
+  TextEditingController jobv_title = new TextEditingController();
+  TextEditingController jobv_desc = new TextEditingController();
+  TextEditingController jobv_date = new TextEditingController();
+  TextEditingController jobv_post_date = new TextEditingController();
+  TextEditingController job_post_by = new TextEditingController();
+  TextEditingController jobv_pos = new TextEditingController();
 
   Future _update() async {
     final response = await http
-        .post(Uri.parse("http://10.0.2.2/android/updateEvent.php"), body: {
-      "event_id": event_id.text,
-      "event_title": event_title.text,
-      "event_desc": event_desc.text,
-      "event_pos": event_pos.text,
-      "event_time": event_time.text,
-      "event_post_date": event_post_date.text,
+        .post(Uri.parse("http://10.0.2.2/android/updateJob.php"), body: {
+      "jobv_id": jobv_id.text,
+      "jobv_title": jobv_title.text,
+      "jobv_desc": jobv_desc.text,
+      "jobv_date": jobv_date.text,
+      "jobv_post_date": jobv_post_date.text,
+      "job_post_by": job_post_by.text,
+      "jobv_pos": jobv_pos.text,
     });
     if (response.statusCode == 200) {
+      print(response.body);
       return true;
     }
 
@@ -41,27 +44,23 @@ class _EventManDetail extends State<EventManDetail> {
   }
 
   void _resetForm() {
-    event_title.clear();
-    event_desc.clear();
-    event_pos.clear();
-    event_time.clear();
-    event_post_date.clear();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    event_post_date.dispose();
+    jobv_title.clear();
+    jobv_desc.clear();
+    jobv_date.clear();
+    jobv_post_date.clear();
+    job_post_by.clear();
+    jobv_pos.clear();
   }
 
   @override
   Widget build(BuildContext context) {
-    event_id.text = widget.ListData['event_id'];
-    event_title.text = widget.ListData['event_title'];
-    event_desc.text = widget.ListData['event_desc'];
-    event_pos.text = widget.ListData['event_pos'];
-    event_time.text = widget.ListData['event_time'];
-    event_post_date.text = widget.ListData['event_post_date'];
+    jobv_id.text = widget.ListData['jobv_id'];
+    jobv_title.text = widget.ListData['jobv_title'];
+    jobv_desc.text = widget.ListData['jobv_desc'];
+    jobv_date.text = widget.ListData['jobv_date'];
+    jobv_post_date.text = widget.ListData['jobv_post_date'];
+    job_post_by.text = widget.ListData['job_post_by'];
+    jobv_pos.text = widget.ListData['jobv_pos'];
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -70,7 +69,7 @@ class _EventManDetail extends State<EventManDetail> {
             Container(
               width: 150,
               child: Text(
-                widget.ListData['event_title'],
+                widget.ListData['jobv_title'],
                 overflow: TextOverflow.fade,
                 maxLines: 1,
               ),
@@ -93,7 +92,7 @@ class _EventManDetail extends State<EventManDetail> {
             child: Column(
               children: [
                 TextField(
-                  controller: event_title,
+                  controller: jobv_title,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -102,14 +101,14 @@ class _EventManDetail extends State<EventManDetail> {
                         color: Colors.blue,
                       ),
                     ),
-                    label: Text("Judul Event"),
+                    label: Text("Judul Job Vacancy"),
                   ),
                 ),
                 SizedBox(
                   height: 30,
                 ),
                 TextField(
-                  controller: event_pos,
+                  controller: jobv_pos,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -118,14 +117,14 @@ class _EventManDetail extends State<EventManDetail> {
                         color: Colors.blue,
                       ),
                     ),
-                    label: Text("Lokasi Event"),
+                    label: Text("Lokasi Job Vacancy"),
                   ),
                 ),
                 SizedBox(
                   height: 30,
                 ),
                 TextField(
-                  controller: event_time,
+                  controller: jobv_date,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -133,7 +132,7 @@ class _EventManDetail extends State<EventManDetail> {
                         color: Colors.blue,
                       ),
                     ),
-                    label: Text("Waktu Event"),
+                    label: Text("Waktu Job Vacancy"),
                   ),
                 ),
                 SizedBox(
@@ -141,7 +140,7 @@ class _EventManDetail extends State<EventManDetail> {
                 ),
                 TextField(
                   maxLines: 15,
-                  controller: event_desc,
+                  controller: jobv_desc,
                   keyboardType: TextInputType.multiline,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -150,7 +149,7 @@ class _EventManDetail extends State<EventManDetail> {
                         color: Colors.blue,
                       ),
                     ),
-                    label: Text("Deskripsi Event"),
+                    label: Text("Deskripsi Job Vacancy"),
                   ),
                 ),
                 SizedBox(
@@ -158,7 +157,7 @@ class _EventManDetail extends State<EventManDetail> {
                 ),
                 TextField(
                   enabled: false,
-                  controller: event_post_date,
+                  controller: jobv_post_date,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -168,6 +167,23 @@ class _EventManDetail extends State<EventManDetail> {
                       ),
                     ),
                     label: Text("Tanggal Posting"),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextField(
+                  enabled: false,
+                  controller: job_post_by,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Colors.blue,
+                      ),
+                    ),
+                    label: Text("Diupload Oleh"),
                   ),
                 ),
               ],
@@ -183,7 +199,7 @@ class _EventManDetail extends State<EventManDetail> {
               child: ElevatedButton.icon(
                 onPressed: () {
                   _update();
-                  Navigator.pushNamed(context, '/EventManagement');
+                  Navigator.pushNamed(context, '/JobMan');
                 },
                 icon: Icon(Icons.save),
                 label: Text("Simpan"),
